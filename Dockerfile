@@ -22,7 +22,8 @@ RUN mvn package -DskipTests
 # Usamos uma imagem leve, que só tem o Java (JRE) para rodar
 # Linha 22 - Recomendado
 FROM eclipse-temurin:22-jre-alpine
-
+ENV LANG C.UTF-8
+ENV MAVEN_OPTS "-Dfile.encoding=UTF-8"
 WORKDIR /app
 
 # Copia APENAS o JAR executável que foi gerado no Estágio 1
