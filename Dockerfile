@@ -1,6 +1,7 @@
 # ---- Estágio 1: O "Build" (Construção) ----
 # Usamos uma imagem que já tem o Maven e o Java (JDK)
-FROM maven:3.8.5-openjdk-22 AS build
+# Correto
+FROM maven:3.9-eclipse-temurin-22 AS build
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -19,7 +20,8 @@ RUN mvn package -DskipTests
 
 # ---- Estágio 2: O "Run" (Execução) ----
 # Usamos uma imagem leve, que só tem o Java (JRE) para rodar
-FROM openjdk:22-jre-slim
+# Linha 22 - Recomendado
+FROM eclipse-temurin:22-jre-alpine
 
 WORKDIR /app
 
