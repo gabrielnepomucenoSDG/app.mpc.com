@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+  <nav th:fragment="thenavbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/home}">NARRATER PRO</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+          </li>
+             <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/agendamentos}">Meus Agendamentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/usuarios/perfil}">Perfil do Usuário</a>
+          </li>
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link active" aria-current="page" th:href="@{/adm}">ADM</a>
+          </li>
+        </ul>
+
+        <form class="d-flex ms-auto" th:action="@{/logout}" method="post">
+          <button type="submit" class="btn btn-danger">Sair</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  -->
+
+
+  <nav th:fragment="thenavbar" class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid">
+      <!-- Usa nomeAplicacao, mas mantém "NARRATER PRO" como fallback ou padrão visual -->
+      <a class="navbar-brand fw-bold" th:href="@{/home}" th:text="${nomeAplicacao ?: 'NARRATER PRO'}">NARRATER PRO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/home}">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/agendamentos}">Meus Agendamentos</a>
+          </li>
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link" th:href="@{/estatisticas}">Estatísticas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/usuarios/perfil}">Perfil do Usuário</a>
+          </li>
+          <!-- Links administrativos visíveis apenas para ROLE_ADMIN -->
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link" th:href="@{/usuarios}">Gerenciar Usuários</a>
+          </li>
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link" th:href="@{/projetos}">Gerenciar Projetos</a>
+          </li>
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link" th:href="@{/importar/agendamentos}">Importar Agendamentos</a>
+          </li>
+          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a class="nav-link" th:href="@{/adm}">ADM (Outros Recursos)</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <span class="navbar-text me-3 fw-bold" th:if="${usuario != null}" th:text="${'Olá, ' + usuario.nome + '!'}">Olá, Usuário!</span>
+          <form th:action="@{/logout}" method="post" class="d-flex">
+            <button class="btn btn-outline-light" type="submit">Sair</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>
