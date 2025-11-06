@@ -14,7 +14,7 @@ WORKDIR /app
 
 # Copia o JAR do estágio de build para o runtime
 # SUBSTITUA 'seu-arquivo-executavel.jar' pelo nome REAL do arquivo JAR (veja seu pom.xml)
-COPY --from=build /app/target/narraterpro.jar app.jar
+COPY --from=build /app/target/narraterpro-0.0.1-SNAPSHOT.jar app.jar
 
 # Define a porta que o Spring Boot vai escutar (usando a variável de ambiente PORT do Render)
 ENV SERVER_PORT 8080
