@@ -110,6 +110,7 @@ public class UsuarioController {
     @PostMapping("/salvar")
     public String salvarUsuario(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttributes) {
         usuarioService.save(usuario);
+        System.out.println("Usuario Controller ✔️");
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Usuário salvo com sucesso!");
 
         return "redirect:/usuarios";

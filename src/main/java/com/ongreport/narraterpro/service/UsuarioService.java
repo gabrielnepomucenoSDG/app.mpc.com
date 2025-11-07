@@ -60,6 +60,7 @@ public class UsuarioService {
     public Usuario save(Usuario usuario) {
         // Codifica a senha antes de salvar
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        System.out.println("Usuario Service ✔️");
         return usuarioRepository.save(usuario);
     }
 

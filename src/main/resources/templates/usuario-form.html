@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Usuário</title>
@@ -8,7 +10,7 @@
 <body>
 
 <header>
-    <div th:if="${usuario != null}">
+    <div sec:authorize="isAuthenticated()">
         <div th:replace="~{fragments :: thenavbar}"></div>
     </div>>
 </header>
@@ -60,7 +62,7 @@
 
         <hr>
 
-        <div class="row" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <div class="row" sec:authorize="hasRole('ADMIN') or isAnonymous()">
             <div class="col-md-4 mb-3">
                 <label for="cidade" class="form-label">Cidade de Atuação:</label>
                 <select id="cidade" class="form-select" th:field="*{cidade}" required>
@@ -71,6 +73,7 @@
                     </option>
                 </select>
             </div>
+
             <div class="col-md-4 mb-3">
                 <label for="funcao" class="form-label">Função na Organização:</label>
                 <input type="text" id="funcao" class="form-control" th:field="*{funcao}" required>

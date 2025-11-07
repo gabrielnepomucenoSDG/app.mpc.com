@@ -1,5 +1,7 @@
 package com.ongreport.narraterpro.config;
 
+// Importamos o HttpMethod para sermos mais específicos
+import org.springframework.http.HttpMethod;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,22 +22,31 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // REGRA 1 (MAIS ESPECÍFICA): Adicionamos esta linha.
-                        // Ela cria uma EXCEÇÃO para a regra de admin, permitindo que qualquer
-                        // usuário LOGADO acesse sua própria página de perfil.
-                        ///////////////////////////////////adicionei abaixo o endpoint /usuarios/novo
-                        .requestMatchers("/", "/login", "/usuarios/novo", "/css/**", "/js/**", "/error").permitAll()
-                        //////////////////////////////////////// realoquei para as linhas antes do bloqueador de endpoints /usuarios/
+                        // REGRAS DE AUTORIZAÇÃO (A ORDEM IMPORTA!)
+
+                        // 1. Libera URLs estáticas, login, e a PÁGINA de novo usuário
+                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/error").permitAll()
+
+                        // 2. Libera o GET para VER o formulário de novo usuário
+                        .requestMatchers(HttpMethod.GET, "/usuarios/novo").permitAll()
+
+                        // 3. Libera o POST para SALVAR o novo usuário
+                        //    (Estou assumindo que seu form action="POST /usuarios")
+                        //    Se seu form posta para "/usuarios/novo", mude a URL abaixo.
+                        .requestMatchers(HttpMethod.POST, "/usuarios/salvar").permitAll()
+
+                        // 4. Regra específica para a própria página de perfil (usuário logado)
                         .requestMatchers("/usuarios/perfil").authenticated()
 
-                        // REGRA 2 (MAIS GERAL): Esta sua regra continua valendo para o resto.
-                        // A lista de usuários, deletar, etc., continuam protegidos para admins.
+                        // 5. Regra GERAL para o resto de "/usuarios" (só admin)
+                        //    (Ex: GET /usuarios (listar), DELETE /usuarios/{id}, etc.)
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
 
-                        // Suas outras regras existentes
+                        // 6. Suas outras regras existentes
                         .requestMatchers("/projetos/**").hasRole("ADMIN")
                         .requestMatchers("/agendamentos/**").authenticated()
 
+                        // 7. REGRA FINAL: Qualquer outra requisição, precisa estar logada.
                         .anyRequest().authenticated()
                 )
                 //... (resto do arquivo sem alterações)
