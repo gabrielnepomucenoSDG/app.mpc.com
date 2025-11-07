@@ -4,6 +4,7 @@ import com.ongreport.narraterpro.dto.stats.CityPerformanceDTO;
 import com.ongreport.narraterpro.dto.stats.LatestAgendamentoDTO;
 import com.ongreport.narraterpro.dto.stats.ProjectExecutionDTO;
 import com.ongreport.narraterpro.entity.Agendamento;
+import com.ongreport.narraterpro.entity.Usuario;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -66,4 +67,6 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
             "WHERE a.exclusao_logica IS NULL OR a.exclusao_logica = 0 " +
             "GROUP BY c.nome ORDER BY COUNT(a) DESC, SUM(CASE WHEN a.feedback_observ IS NOT NULL AND a.feedback_observ <> '' THEN 1.0 ELSE 0.0 END) DESC")
     List<CityPerformanceDTO> findCityPerformanceRanking();
+
+    List<Agendamento> findByUsuario(Usuario usuario);
 }

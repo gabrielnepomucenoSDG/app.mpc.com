@@ -1,10 +1,13 @@
 package com.ongreport.narraterpro.controller;
 
+import java.security.Principal; // Apenas uma importação é necessária
+import com.ongreport.narraterpro.entity.Usuario;
+import com.ongreport.narraterpro.repository.UsuarioRepository;
+
 import com.ongreport.narraterpro.entity.Agendamento;
 import com.ongreport.narraterpro.entity.Atividade;
 import com.ongreport.narraterpro.entity.Projeto;
 import com.ongreport.narraterpro.repository.AtividadeRepository;
-import com.ongreport.narraterpro.repository.UsuarioRepository;
 import com.ongreport.narraterpro.service.AgendamentoService;
 import com.ongreport.narraterpro.service.AgendamentoFacade;
 
@@ -19,7 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
+// import java.security.Principal; // Removido por estar duplicado
 import java.util.Collections;
 import java.util.List;
 
@@ -100,8 +103,22 @@ public class AgendamentoController {
 
     // Método para listar todos os agendamentos ativos
     @GetMapping
-    public String listarAgendamentos(Model model) {
-        List<Agendamento> agendamentos = agendamentoService.buscarTodos();
+    public String listarAgendamentos(Model model, Principal principal) {
+        // 1. Verificação de segurança: se não há usuário, não há agendamentos.
+        if (principal == null) {
+            // Você pode redirecionar para o login ou retornar uma lista vazia
+            model.addAttribute("agendamentos", Collections.emptyList());
+            return "agendamentos-lista"; // Ou "redirect:/login"
+        }
+
+        // 2. Pega o nome de usuário (email) do usuário logado
+        String username = principal.getName();
+
+        // 3. Pede ao SERVICE que busque os agendamentos *desse* usuário
+        // Nota: Estamos mudando de 'buscarTodos()' para 'buscarPorUsuarioLogado()'
+        List<Agendamento> agendamentos = agendamentoService.buscarPorUsuarioLogado(username);
+
+        // 4. Adiciona a lista FILTRADA ao model
         model.addAttribute("agendamentos", agendamentos);
         return "agendamentos-lista";
     }

@@ -23,6 +23,7 @@ import java.util.List;
 @Service
 public class AgendamentoService implements AgendamentoPublisher {
 
+
     // Injetando os repositórios que este serviço vai precisar usar.
     // O Spring vai fornecer as instâncias automaticamente (Injeção de Dependência).
   private AgendamentoRepository agendamentoRepository;
@@ -131,6 +132,15 @@ public class AgendamentoService implements AgendamentoPublisher {
 
         // Salva a alteração. O JPA fará um UPDATE.
         agendamentoRepository.save(agendamento);
+    }
+
+    public List<Agendamento> buscarPorUsuarioLogado(String username) {
+        Usuario usuarioLogado = usuarioRepository.findByEmail(username)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + username));
+
+        // 2. Usa o método do repositório que já definimos ('findByUsuario')
+        // (Este método está no seu 'AgendamentoRepository.java (Trecho)')
+        return agendamentoRepository.findByUsuario(usuarioLogado);
     }
 
 }
