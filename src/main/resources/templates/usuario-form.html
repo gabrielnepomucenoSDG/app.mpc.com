@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Usuário</title>
@@ -8,7 +10,9 @@
 <body>
 
 <header>
-    <div th:replace="~{fragments :: thenavbar}"></div>
+    <div sec:authorize="isAuthenticated()">
+        <div th:replace="~{fragments :: thenavbar}"></div>
+    </div>>
 </header>
 
 <div class="container mt-4">
