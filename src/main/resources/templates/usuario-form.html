@@ -62,7 +62,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
         <hr>
 
-        <div class="row" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <div class="row" sec:authorize="hasRole('ADMIN') or isAnonymous()">
             <div class="col-md-4 mb-3">
                 <label for="cidade" class="form-label">Cidade de Atuação:</label>
                 <select id="cidade" class="form-select" th:field="*{cidade}" required>
