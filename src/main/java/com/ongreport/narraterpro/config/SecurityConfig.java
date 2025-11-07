@@ -32,7 +32,9 @@ public class SecurityConfig {
                         // Suas outras regras existentes
                         .requestMatchers("/projetos/**").hasRole("ADMIN")
                         .requestMatchers("/agendamentos/**").authenticated()
-                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/error").permitAll()
+                        ///////////////////////////////////adicionei abaixo o endpoint /usuarios/novo
+                        .requestMatchers("/", "/login", "/usuarios/novo", "/css/**", "/js/**", "/error").permitAll()
+                        ////////////////////////////////////////
                         .anyRequest().authenticated()
                 )
                 //... (resto do arquivo sem alterações)
