@@ -8,7 +8,9 @@
 <body>
 
 <header>
-    <div th:replace="~{fragments :: thenavbar}"></div>
+    <div th:if="${usuario != null}">
+        <div th:replace="~{fragments :: thenavbar}"></div>
+    </div>>
 </header>
 
 <div class="container mt-4">

@@ -23,6 +23,9 @@ public class SecurityConfig {
                         // REGRA 1 (MAIS ESPECÍFICA): Adicionamos esta linha.
                         // Ela cria uma EXCEÇÃO para a regra de admin, permitindo que qualquer
                         // usuário LOGADO acesse sua própria página de perfil.
+                        ///////////////////////////////////adicionei abaixo o endpoint /usuarios/novo
+                        .requestMatchers("/", "/login", "/usuarios/novo", "/css/**", "/js/**", "/error").permitAll()
+                        //////////////////////////////////////// realoquei para as linhas antes do bloqueador de endpoints /usuarios/
                         .requestMatchers("/usuarios/perfil").authenticated()
 
                         // REGRA 2 (MAIS GERAL): Esta sua regra continua valendo para o resto.
@@ -32,7 +35,7 @@ public class SecurityConfig {
                         // Suas outras regras existentes
                         .requestMatchers("/projetos/**").hasRole("ADMIN")
                         .requestMatchers("/agendamentos/**").authenticated()
-                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/error").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 //... (resto do arquivo sem alterações)

@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="login-container">
-    <h2 class="text-center mb-4">Acessar Plataforma</h2>
+    <h2 class="text-center mb-4"> NÃOOOOOO Acessar Plataforma</h2>
 
     <div th:if="${param.error}" class="alert alert-danger">
         Email ou senha inválidos.
@@ -22,6 +22,7 @@
     </div>
 
     <form th:action="@{/perform_login}" method="post">
+
         <div class="mb-3">
             <label for="username" class="form-label">Email</label>
             <input type="email" class="form-control" id="username" name="username" required autofocus>
@@ -33,7 +34,13 @@
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Entrar</button>
         </div>
+
     </form>
+
+    <div class="text-center mt-3">
+        <span>Não tem uma conta?</span>
+        <a th:href="@{/usuarios/novo}">Cadastre-se aqui</a>
+    </div>
 </div>
 </body>
 </html>
