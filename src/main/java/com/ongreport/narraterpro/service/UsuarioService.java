@@ -59,6 +59,7 @@ public class UsuarioService {
     @Transactional
     public Usuario save(Usuario usuario) {
         // Codifica a senha antes de salvar
+        System.out.println("Usuario Service");
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }

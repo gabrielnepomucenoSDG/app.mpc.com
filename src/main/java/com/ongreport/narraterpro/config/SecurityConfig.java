@@ -33,7 +33,7 @@ public class SecurityConfig {
                         // 3. Libera o POST para SALVAR o novo usuário
                         //    (Estou assumindo que seu form action="POST /usuarios")
                         //    Se seu form posta para "/usuarios/novo", mude a URL abaixo.
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios/salvar").permitAll()
 
                         // 4. Regra específica para a própria página de perfil (usuário logado)
                         .requestMatchers("/usuarios/perfil").authenticated()
