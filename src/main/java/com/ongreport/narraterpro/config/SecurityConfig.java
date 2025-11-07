@@ -26,7 +26,7 @@ public class SecurityConfig {
                         // REGRAS DE AUTORIZAÇÃO (A ORDEM IMPORTA!)
 
                         // 1. Libera URLs estáticas, login, e a PÁGINA de novo usuário
-                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/error").permitAll()
+                        .requestMatchers("/", "/login", "/perform_login", "/css/**", "/js/**", "/error").permitAll()
 
                         // 2. Libera o GET para VER o formulário de novo usuário
                         .requestMatchers(HttpMethod.GET, "/usuarios/novo").permitAll()
@@ -62,7 +62,7 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         return http.build();
     }
