@@ -83,7 +83,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </div>
         </div>
 
-        <div class="row" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <div class="row" sec:authorize="hasRole('ADMIN') or isAnonymous()">
             <div class="col-md-6 mb-3">
                 <label for="adm" class="form-label">Nível de Acesso:</label>
                 <select id="adm" class="form-select" th:field="*{adm}">
@@ -92,6 +92,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </select>
             </div>
         </div>
+
 
         <button type="submit" class="btn btn-primary">Salvar Usuário</button>
         <a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
