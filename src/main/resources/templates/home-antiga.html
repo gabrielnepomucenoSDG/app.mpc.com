@@ -1,0 +1,149 @@
+
+
+<!doctype html>
+
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Narrater Pro</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <style>
+        .square {
+            width: 130px;
+            height: 130px;
+            background-color: #007bff;
+            color: #fff;
+            border: 2px solid #0056b3;
+            aspect-ratio: 1 / 1;
+            position: relative; /* Necessário para posicionamento absoluto dos filhos */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .square-option {
+            width: auto;
+            height: auto;
+            background-color: #007bff;
+            color: #fff;
+            border: 2px solid #0056b3;
+            aspect-ratio: 1 / 1;
+            position: relative; /* Necessário para posicionamento absoluto dos filhos */
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            text-align: center; /* Garante que o texto fique alinhado */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .day-container {
+            text-align: center;
+            max-width: 120px; /* Limita a largura dos quadrados */
+            margin: 0 auto; /* Centraliza o container */
+        }
+        .day-title {
+            margin-bottom: 10px;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+        .rectangle {
+            position: relative;
+
+            background-color: #ffffff;
+            color: #007bff;
+            width: 90%; /* Ajusta o tamanho do retângulo */
+            height: 10%;
+            padding: 5px 0;
+            margin: 0 auto;
+            margin-bottom: 2px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .body-square {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .top-left-date {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #007bff;
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+        .top-right-btn {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            font-size: 8px;
+        }
+        .bottom-right-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 8px;
+        }
+        .scrollable-content {
+            overflow-y: auto; /* Adiciona barra de rolagem vertical */
+            max-height: 80px; /* Limita a altura do conteúdo dentro do quadrado */
+            padding: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+<header>
+    <div th:replace="~{fragments :: thenavbar}"></div>
+</header>
+
+        <div th:if="${usuario != null}">
+            <h1 th:text="'Bem-vindo, ' + ${usuario.nome} + '!'">
+                Bem-vindo!
+            </h1>
+        </div>
+
+
+    <div class="container-fluid">
+        <div class="container mt-4">
+
+            <div class="row">
+                <div class="col mt-12">
+                    <div class="card">
+                        <div class="card-header">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Rodapé -->
+<footer>
+    <div id="copy-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        Desenvolvido pelo graduando Gabriel Martins Nepomuceno
+                        <span th:text="${configuracaoApp.nomeAplicacao} + ' © 2025'"></span>
+                        <span th:text="${configuracaoApp.versionAplicacao}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>
+
