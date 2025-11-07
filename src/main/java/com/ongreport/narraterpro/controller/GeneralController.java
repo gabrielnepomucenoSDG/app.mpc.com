@@ -86,7 +86,12 @@ public class GeneralController {
     public String estatisticas(){
         return "estatisticas";
     }
-*/
+    */
+    @GetMapping("/ping")
+    public String ping(){
+        return "ping";
+    }
+
 
 
 

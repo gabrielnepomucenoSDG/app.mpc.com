@@ -67,9 +67,9 @@
           <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
            <!--- <a class="nav-link" th:href="@{/projetos}">Gerenciar Projetos</a> ---->
           </li>
-          <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <a class="nav-link" th:href="@{/importar/agendamentos}">Importar Agendamentos</a>
-          </li>
+
+            <a class="nav-link" th:href="@{/importar/agendamentos}">Importação</a>
+
           <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
             <a class="nav-link" th:href="@{/adm}">ADM (Outros Recursos)</a>
           </li>
